@@ -7,7 +7,7 @@ Puede ser utilizada por cualquier programador para incluir en sus programas.
 */
 
 /**************************************/
-/***** DEFINICION DE CONSTANTES *******/
+/***** Una constante es un valor que se asigna una vez y se mantiene fijo para todo el algoritmo (o en el programa). Al igual que las variables son un espacio reservado en la memoria para almacenar un valor. Posee un tipo de dato y un identificador. *******/
 /**************************************/
 const CANT_INTENTOS = 6;
 
