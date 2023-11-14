@@ -7,7 +7,7 @@ Puede ser utilizada por cualquier programador para incluir en sus programas.
 */
 
 /**************************************/
-/***** Una constante es un valor que se asigna una vez y se mantiene fijo para todo el algoritmo (o en el programa). Al igual que las variables son un espacio reservado en la memoria para almacenar un valor. Posee un tipo de dato y un identificador. *******/
+/***** Una constante es un valor que se asigna una vez y se mantiene fijo para todo el algoritmo (o en el programa). Al igual que las variables son un espacio reservado en la memoria para almacenar un valor. Posee un tipo de dato y un identificador. A diferencia de una constante, la variable puede cambiar su valor, pero no su tipo de dato. *******/
 /**************************************/
 const CANT_INTENTOS = 6;
 
