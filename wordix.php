@@ -7,7 +7,7 @@ Puede ser utilizada por cualquier programador para incluir en sus programas.
 */
 
 /**************************************/
-/***** Una constante es un valor que se asigna una vez y se mantiene fijo para todo el algoritmo (o en el programa). Al igual que las variables son un espacio reservado en la memoria para almacenar un valor. Posee un tipo de dato y un identificador. A diferencia de una constante, la variable puede cambiar su valor, pero no su tipo de dato. *******/
+/***** DEFINICION DE CONSTANTES *******/
 /**************************************/
 const CANT_INTENTOS = 6;
 
@@ -27,7 +27,10 @@ const ESTADO_LETRA_PERTENECE = "pertenece";
 /**************************************/
 
 /**
- *  ****COMPLETAR*****
+ * Solicita al usuario ingresar un numero entre un rango determinado.
+ * @param int $min
+ * @param int $max
+ * @return int
  */
 function solicitarNumeroEntre($min, $max)
 {
@@ -38,6 +41,7 @@ function solicitarNumeroEntre($min, $max)
     if (is_numeric($numero)) { //determina si un string es un número. puede ser float como entero.
         $numero  = $numero * 1; //con esta operación convierto el string en número.
     }
+    // se utiliza un ciclo para validar el numero ingresado
     while (!(is_numeric($numero) && (($numero == (int)$numero) && ($numero >= $min && $numero <= $max)))) {
         echo "Debe ingresar un número entre " . $min . " y " . $max . ": ";
         $numero = trim(fgets(STDIN));
@@ -50,7 +54,7 @@ function solicitarNumeroEntre($min, $max)
 
 /**
  * Escrbir un texto en color ROJO
- * @param string $texto)
+ * @param string $texto
  */
 function escribirRojo($texto)
 {
@@ -59,7 +63,7 @@ function escribirRojo($texto)
 
 /**
  * Escrbir un texto en color VERDE
- * @param string $texto)
+ * @param string $texto
  */
 function escribirVerde($texto)
 {
@@ -68,7 +72,7 @@ function escribirVerde($texto)
 
 /**
  * Escrbir un texto en color AMARILLO
- * @param string $texto)
+ * @param string $texto
  */
 function escribirAmarillo($texto)
 {
@@ -77,7 +81,7 @@ function escribirAmarillo($texto)
 
 /**
  * Escrbir un texto en color GRIS
- * @param string $texto)
+ * @param string $texto
  */
 function escribirGris($texto)
 {
@@ -86,7 +90,7 @@ function escribirGris($texto)
 
 /**
  * Escrbir un texto pantalla.
- * @param string $texto)
+ * @param string $texto
  */
 function escribirNormal($texto)
 {
@@ -120,7 +124,8 @@ function escribirSegunEstado($texto, $estado)
 }
 
 /**
- * ****COMPLETAR*****
+ * Escribe un mensaje de bienvenida al ingresar un usuario.
+ * @param string $usuario
  */
 function escribirMensajeBienvenida($usuario)
 {
@@ -133,34 +138,38 @@ function escribirMensajeBienvenida($usuario)
 
 
 /**
- * ****COMPLETAR*****
+ * Verifica si una cadena contiene letras.
+ * @param string $cadena
+ * @return boolean
  */
 function esPalabra($cadena)
 {
     //int $cantCaracteres, $i, boolean $esLetra
-    $cantCaracteres = strlen($cadena);
+    $cantCaracteres = strlen($cadena);// cuenta los caracteres de la cadena.(los caracteres del string)
     $esLetra = true;
     $i = 0;
     while ($esLetra && $i < $cantCaracteres) {
-        $esLetra =  ctype_alpha($cadena[$i]);
+        $esLetra =  ctype_alpha($cadena[$i]);//Verifica si todos los caracteres en la string entregada,texto, son alfabéticos
         $i++;
     }
     return $esLetra;
 }
 
 /**
- *  ****COMPLETAR*****
+ * Lee una palabra de 5 letras ingresada por el usuario.
+ * @param string 
+ * @return string
  */
 function leerPalabra5Letras()
 {
     //string $palabra
     echo "Ingrese una palabra de 5 letras: ";
-    $palabra = trim(fgets(STDIN));
+    $palabra = trim(fgets(STDIN));//trim se encarga de eliminar los espacios al inicio y al final de la entrada.
     $palabra  = strtoupper($palabra);
 
     while ((strlen($palabra) != 5) || !esPalabra($palabra)) {
         echo "Debe ingresar una palabra de 5 letras:";
-        $palabra = strtoupper(trim(fgets(STDIN)));
+        $palabra = strtoupper(trim(fgets(STDIN)));//Devuelve el string con todos los caracteres alfabéticos convertidos a mayúsculas.
     }
     return $palabra;
 }
