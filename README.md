@@ -12,3 +12,4 @@ Facultad de Informática - UNCO
 
 - Gabriela S. Chuichuy | Legajo 3153| gabriela.chuichuy@est.fi.uncoma.edu.ar| GabyCh92
 - Nicolas M. Caretta Saez | Legajo 4393| nicolas.caretta@est.fi.uncoma.edu.ar| Nico9220
+- Lucas J. Vega | Legajo 3940| lucas.vega@est.fi.uncoma.edu.ar| luuukaskm
