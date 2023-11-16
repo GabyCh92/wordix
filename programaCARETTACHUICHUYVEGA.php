@@ -105,16 +105,22 @@ do {
             //completar qué secuencia de pasos ejecutar si el usuario elige la opción 1
 
             break;
-        /*case 2: 
-            //completar qué secuencia de pasos ejecutar si el usuario elige la opción 2
+        case 2:
+            echo "Ingrese su Nombre\n";
+            $nombre = trim(fgets(STDIN));
+            $numPalabra = random_int(1, 19); //Asigna un numero entero aleatorio
+            $jugar = jugarWordix($numPalabra, $nombre); 
+            
 
             break;
         case 3: 
+            echo "Ingrese numero de partida: \n";
+            $nroPartida = (int)trim(fgets(STDIN)); 
             //completar qué secuencia de pasos ejecutar si el usuario elige la opción 3
 
             break;
         
-            */
+            
         case 8:
             break;
             
