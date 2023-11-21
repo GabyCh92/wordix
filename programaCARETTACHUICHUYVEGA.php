@@ -92,7 +92,7 @@ return $coleccionPartidas;
 //print_r($partida);
 //imprimirResultado($partida);
 
-
+$coleccionPalabras = cargarColeccionPalabras();
 do {
     $opcion = seleccionarOpciones();
     switch ($opcion) {
@@ -100,8 +100,9 @@ do {
             echo "Ingrese su Nombre\n";
             $nombre = trim(fgets(STDIN));
             echo "Ingre un numero\n";
-            $numPalabra = (int)(trim(fgets(STDIN)));
-            $jugar = jugarWordix($numPalabra, $nombre);
+            $numPalabra = solicitarNumeroEntre(0,count($coleccionPalabras));
+            $jugar = jugarWordix($coleccionPalabras[$numPalabra], $nombre);
+            print_r($jugar);
             //completar qué secuencia de pasos ejecutar si el usuario elige la opción 1
 
             break;
