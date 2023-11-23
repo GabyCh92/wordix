@@ -68,21 +68,7 @@ function seleccionarOpciones(){
 
     return $numSelec;
 }
-/**
- * Dado un numero, retorna la partida que se solicitada
- * @param int $num
- * @return array
- */
 
- function partidaNum($num){
-    /*array $coleccionPartida, $partida*/
-    $coleccionPartida = cargarPartidas();
-    if($num > 0){
-        $num = $num - 1; 
-    }
-    $partida = $coleccionPartida[$num];
-    return $partida;
-}
 
 /**
  * Posee una coleccion de partidas y retorna la misma
@@ -103,6 +89,22 @@ function cargarPartidas()
     $coleccionPartidas[9] = ["palabraWordix" => "LIBRO", "jugador" => "rudolf", "intentos" => 1, "puntaje" => 16];
    
 return $coleccionPartidas;
+}
+
+/**
+ * Dado un numero, retorna la partida que se solicitada
+ * @param int $num
+ * @return array
+ */
+
+ function partidaNum($num){
+    /*array $coleccionPartida, $partida*/
+    $coleccionPartida = cargarPartidas();
+    if($num > 0){
+        $num = $num - 1; 
+    }
+    $partida = $coleccionPartida[$num];
+    return $partida;
 }
 //print_r($partida);
 //imprimirResultado($partida);
