@@ -43,7 +43,7 @@ function solicitarNumeroEntre($min, $max)
     }
     // se utiliza un ciclo para validar el numero ingresado
     while (!(is_numeric($numero) && (($numero == (int)$numero) && ($numero >= $min && $numero <= $max)))) {
-        echo "Debe ingresar un número entre " . $min . " y " . $max . ": ";
+        echo "El numero ingresado no es correcto. Ingrese un numero entre " . $min . " y " . $max . ": ";
         $numero = trim(fgets(STDIN));
         if (is_numeric($numero)) {
             $numero  = $numero * 1;

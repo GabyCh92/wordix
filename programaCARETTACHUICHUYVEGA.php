@@ -68,6 +68,21 @@ function seleccionarOpciones(){
 
     return $numSelec;
 }
+/**
+ * Dado un numero, retorna la partida que se solicitada
+ * @param int $num
+ * @return array
+ */
+
+ function partidaNum($num){
+    /*array $coleccionPartida, $partida*/
+    $coleccionPartida = cargarPartidas();
+    if($num > 0){
+        $num = $num - 1; 
+    }
+    $partida = $coleccionPartida[$num];
+    return $partida;
+}
 
 /**
  * Posee una coleccion de partidas y retorna la misma
@@ -93,6 +108,7 @@ return $coleccionPartidas;
 //imprimirResultado($partida);
 
 $coleccionPalabras = cargarColeccionPalabras();
+$coleccionPartidas = cargarPartidas();
 do {
     $opcion = seleccionarOpciones();
     switch ($opcion) {
@@ -115,13 +131,29 @@ do {
 
             break;
         case 3: 
-            echo "Ingrese numero de partida: \n";
-            $nroPartida = (int)trim(fgets(STDIN)); 
+            echo "Ingrese un numero\n";
+            $numero = solicitarNumeroEntre(0,count($coleccionPartidas));
+            $seleccionoPartida = partidaNum($numero);
+            print_r($seleccionoPartida); 
             //completar qué secuencia de pasos ejecutar si el usuario elige la opción 3
 
             break;
-        
+        case 4:
+
+
+            break;
+        case 5:
+
+            break;
+        case 6:
+
             
+            break;
+        case 7:
+            
+            break;
+        case 8:
+            break;
         case 8:
             break;
             
