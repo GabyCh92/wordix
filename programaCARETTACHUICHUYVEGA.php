@@ -92,6 +92,29 @@ return $coleccionPartidas;
 }
 
 /**
+ * Dada una caleccion de partida, una caleccion de palabra, el nombre de un jugador y un indice. Determina si el jugador puede jugar la palabra que eligio, segun el indice
+ * @param array $coleccionPalabra
+ * @param array $coleccionPartida
+ * @param string $nombre
+ * @param int $num
+ * @return boolean 
+ */
+    $coleccionPalabra = cargarColeccionPalabras();
+    $coleccionPartida = cargarPartidas();
+    function validarPalabra($coleccionPalabra,$coleccionPartida, $nombre, $num){
+    /*boolean $palabraValida */
+    $palabraValida = true;
+    for($i=0; $i < count($coleccionPalabra); $i++){
+        for($j=0; $j < count($coleccionPartida); $j++){
+            if( $coleccionPalabra[$num] == $coleccionPartida[$j]["palabraWordix"] && $nombre == $coleccionPartida[$j]["jugador"]){
+                $palabraValida = false;
+            }
+        }
+    }
+return $palabraValida;
+}
+
+/**
  * Dado un numero, retorna la partida que se solicitada
  * @param int $num
  * @return array
@@ -126,10 +149,15 @@ do {
             break;
         case 2:
             echo "Ingrese su Nombre\n";
-            $nombre = trim(fgets(STDIN));
-            $numPalabra = random_int(1, 19); //Asigna un numero entero aleatorio
-            $jugar = jugarWordix($numPalabra, $nombre); 
-            
+            $nom = trim(fgets(STDIN));//Asigna un numero entero aleatorio
+            echo "Ingrese un numero\n";
+            $numPal = solicitarNumeroEntre(0, count($coleccionPalabras));
+            while(!validarPalabra($coleccionPalabra,$coleccionPartida, $nom,$numPal)){
+                $numPal = solicitarNumeroEntre(0, count($coleccionPalabras));;
+            }
+            $jugar = jugarWordix($coleccionPalabra[$numPal], $nom);
+            print_r($jugar);
+            array_push($coleccionPartida,$jugar);
 
             break;
         case 3: 
