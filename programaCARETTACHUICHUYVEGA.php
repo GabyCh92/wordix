@@ -129,6 +129,23 @@ return $palabraValida;
     $partida = $coleccionPartida[$num];
     return $partida;
 }
+
+/**
+ * Dada una coleccion de partidas y el nombre del jugador, se muestre por pantalla la primera partida ganada del jugador
+ * @param array $coleccionPartidas
+ * @param array $nomb
+ * @return array
+ */
+$coleccionPartidas = cargarPartidas();
+function primerPartidaGanada ($coleccionPartidas, $nomb){
+
+    for( $i = 0; $i < count($coleccionPartidas); $i++){
+        if ($nomb == $coleccionPartidas[$i]['jugador'] && $coleccionPartidas[$i]['puntaje'] > 0){
+            return $coleccionPartidas[$i];
+        }
+    }
+}
+  
 //print_r($partida);
 //imprimirResultado($partida);
 
@@ -169,7 +186,10 @@ do {
 
             break;
         case 4:
-
+            echo "Ingrese un Nombre\n";
+            $nombre = trim(fgets(STDIN));
+            $primPart = primerPartidaGanada($coleccionPartida, $nombre);
+            print_r($primPart);
 
             break;
         case 5:
