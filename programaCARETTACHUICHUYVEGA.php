@@ -235,7 +235,13 @@ do {
             
             break;
         case 7:
-            
+            do{
+            $nuevaPalabra = leerPalabra5Letras();
+            array_push($coleccionPalabras, $nuevaPalabra);
+            echo "Desea ingresar otra palabra? (s/n) \n";
+            $opcion = trim(fgets(STDIN));
+            }while($opcion == "s");
+            //print_r($coleccionPalabras); | para verificar que la palabra se agrego correctamente
             break;
         case 8:
             break;
