@@ -151,11 +151,17 @@ function primerPartidaGanada ($coleccionPartidas, $nomb){
 //imprimirResultado($partida);
 
 function informacionJugador ($coleccionPartidas, $nombreDelJugador){
-    $partidasJugadas = [];
     $totalPartidas = 0;
     $puntajeTotal = 0;
     $victorias = 0;
-    $adivinadas = [];
+    $adivinadas = [
+        'intento 1' => 0,
+        'intento 2' => 0,
+        'intento 3' => 0,
+        'intento 4' => 0,
+        'intento 5' => 0,
+        'intento 6' => 0,
+    ];
 
     foreach ($coleccionPartidas as $partida){
         if ($partida ['jugador'] == $nombreDelJugador){
@@ -163,20 +169,41 @@ function informacionJugador ($coleccionPartidas, $nombreDelJugador){
 
             $puntajeTotal += $partida['puntaje'];
 
-            if($partida['puntaje'] > 0){
+            if ($partida['puntaje'] > 0) {
                 $victorias++;
-            }
 
+                switch ($partida['intentos']) {
+                    case 1:
+                        $adivinadas['intento 1']++;
+                        break;
+                    case 2:
+                        $adivinadas['intento 2']++;
+                        break;
+                    case 3:
+                        $adivinadas['intento 3']++;
+                        break;
+                    case 4:
+                        $adivinadas['intento 4']++;
+                        break;
+                    case 5:
+                        $adivinadas['intento 5']++;
+                        break;
+                    case 6:
+                        $adivinadas['intento 6']++;
+                        break;
+                }
+            }
         }
     }
-    $porcentajeDeVictorias = ($victorias * $totalPartidas) / 100;
+    $porcentajeDeVictorias = ($victorias * 100) / $totalPartidas;
 
     return [ 
-        'nombre' => $nombreDelJugador,
-        'cantidadPartidas' => $totalPartidas,
-        'puntajeTotal' => $puntajeTotal,
-        'victorias' => $victorias,
-        'porcentajeVictorias' => $porcentajeDeVictorias,
+        'Jugador' => $nombreDelJugador,
+        'Partidas' => $totalPartidas,
+        'Puntaje Total' => $puntajeTotal,
+        'Victorias' => $victorias,
+        'Porcentaje Victorias' => $porcentajeDeVictorias,
+        'Adivinadas' => $adivinadas,
     ];
 }
 
