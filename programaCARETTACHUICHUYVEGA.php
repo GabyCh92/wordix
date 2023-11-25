@@ -160,11 +160,69 @@ function primerPartidaGanada ($coleccionPartidas, $nomb){
         if ($nomb == $coleccionPartidas[$i]['jugador'] && $coleccionPartidas[$i]['puntaje'] > 0){
             return $coleccionPartidas[$i];
         }
+        }
     }
-}
+
   
 //print_r($partida);
 //imprimirResultado($partida);
+
+function informacionJugador ($coleccionPartidas, $nombreDelJugador){
+    $totalPartidas = 0;
+    $puntajeTotal = 0;
+    $victorias = 0;
+    $adivinadas = [
+        'intento 1' => 0,
+        'intento 2' => 0,
+        'intento 3' => 0,
+        'intento 4' => 0,
+        'intento 5' => 0,
+        'intento 6' => 0,
+    ];
+
+    foreach ($coleccionPartidas as $partida){
+        if ($partida ['jugador'] == $nombreDelJugador){
+            $totalPartidas++;
+
+            $puntajeTotal += $partida['puntaje'];
+
+            if ($partida['puntaje'] > 0) {
+                $victorias++;
+
+                switch ($partida['intentos']) {
+                    case 1:
+                        $adivinadas['intento 1']++;
+                        break;
+                    case 2:
+                        $adivinadas['intento 2']++;
+                        break;
+                    case 3:
+                        $adivinadas['intento 3']++;
+                        break;
+                    case 4:
+                        $adivinadas['intento 4']++;
+                        break;
+                    case 5:
+                        $adivinadas['intento 5']++;
+                        break;
+                    case 6:
+                        $adivinadas['intento 6']++;
+                        break;
+                }
+            }
+        }
+    }
+    $porcentajeDeVictorias = ($victorias * 100) / $totalPartidas;
+
+    return [ 
+        'Jugador' => $nombreDelJugador,
+        'Partidas' => $totalPartidas,
+        'Puntaje Total' => $puntajeTotal,
+        'Victorias' => $victorias,
+        'Porcentaje Victorias' => $porcentajeDeVictorias,
+        'Adivinadas' => $adivinadas,
+    ];
+}
 
 $coleccionPalabras = cargarColeccionPalabras();
 $coleccionPartidas = cargarPartidas();
@@ -207,6 +265,10 @@ do {
 
             break;
         case 5:
+            echo "Ingrese nombre del jugador\n";
+            $nombreJugador = trim(fgets(STDIN));
+            $informacionDelJugador = informacionJugador($coleccionPartida, $nombreJugador);
+            print_r($informacionDelJugador);
 
             break;
         case 6:
@@ -214,7 +276,27 @@ do {
             
             break;
         case 7:
-            
+            //print_r($coleccionPalabras);
+
+            do{
+            $nuevaPalabra = leerPalabra5Letras();
+            for ($i=0; $i<count($coleccionPalabras); $i++){
+
+                if($nuevaPalabra == $coleccionPalabras[$i]){
+                    echo "La palabra ya existe! \n";
+                    break;
+                }else{
+                    array_push($coleccionPalabras, $nuevaPalabra);
+                    break;
+                }
+                
+            }
+
+            echo "Desea ingresar otra palabra? (s/n) \n";
+            $opcion = trim(fgets(STDIN));
+            }while($opcion == "s");
+
+            //print_r($coleccionPalabras);| para verificar que la palabra se agrego correctamente
             break;
     }
 } while ($opcion != 8 );
