@@ -167,6 +167,12 @@ function primerPartidaGanada ($coleccionPartidas, $nomb){
 //print_r($partida);
 //imprimirResultado($partida);
 
+/**
+ * Muestra la informacion de un jugador en concreto
+ * @param array $coleccionPartidas
+ * @param string $nombreDelJugador
+ * @return array
+ */
 function informacionJugador ($coleccionPartidas, $nombreDelJugador){
     $totalPartidas = 0;
     $puntajeTotal = 0;
@@ -226,13 +232,15 @@ function informacionJugador ($coleccionPartidas, $nombreDelJugador){
 
 /**
  * Ordena alfabeticamente las partidas por jugador y palabra
+ * @param array $partidas
+ * @return array
  */
 function ordenar($partidas) { 
     function comparaJugador($a, $b) {
         $comparacionJugador = strcmp($a['jugador'], $b['jugador']);
         return ($comparacionJugador !== 0) ? $comparacionJugador : strcmp($a['palabraWordix'], $b['palabraWordix']);
     }
-    uasort($partidas, 'comparaJugador');
+    uasort($partidas, 'comparaJugador');//Ordena un array con una función de comparación definida por el usuario y mantiene la asociación de índices.
 
     return $partidas;
 }
@@ -286,7 +294,7 @@ do {
             break;
         case 6:
             $ordenPartidas = ordenar($coleccionPartidas);
-            print_r($ordenPartidas);
+            print_r($ordenPartidas);// Imprime información legible para humanos sobre una variable.
             
             break;
         case 7:
