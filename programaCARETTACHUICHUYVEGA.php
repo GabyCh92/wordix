@@ -207,6 +207,20 @@ function informacionJugador ($coleccionPartidas, $nombreDelJugador){
     ];
 }
 
+/**
+ * Ordena alfabeticamente las partidas por jugador y palabra
+ */
+function ordenar($partidas) { 
+    function comparaJugador($a, $b) {
+        $comparacionJugador = strcmp($a['jugador'], $b['jugador']);
+        return ($comparacionJugador !== 0) ? $comparacionJugador : strcmp($a['palabraWordix'], $b['palabraWordix']);
+    }
+    uasort($partidas, 'comparaJugador');
+
+    return $partidas;
+}
+
+
 $coleccionPalabras = cargarColeccionPalabras();
 $coleccionPartidas = cargarPartidas();
 do {
@@ -258,7 +272,8 @@ do {
 
             break;
         case 6:
-
+            $ordenPartidas = ordenar($coleccionPartidas);
+            print_r($ordenPartidas);
             
             break;
         case 7:
