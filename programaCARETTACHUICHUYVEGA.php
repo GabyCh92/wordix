@@ -143,11 +143,42 @@ function primerPartidaGanada ($coleccionPartidas, $nomb){
         if ($nomb == $coleccionPartidas[$i]['jugador'] && $coleccionPartidas[$i]['puntaje'] > 0){
             return $coleccionPartidas[$i];
         }
+        }
     }
-}
+
   
 //print_r($partida);
 //imprimirResultado($partida);
+
+function informacionJugador ($coleccionPartidas, $nombreDelJugador){
+    $partidasJugadas = [];
+    $totalPartidas = 0;
+    $puntajeTotal = 0;
+    $victorias = 0;
+    $adivinadas = [];
+
+    foreach ($coleccionPartidas as $partida){
+        if ($partida ['jugador'] == $nombreDelJugador){
+            $totalPartidas++;
+
+            $puntajeTotal += $partida['puntaje'];
+
+            if($partida['puntaje'] > 0){
+                $victorias++;
+            }
+
+        }
+    }
+    $porcentajeDeVictorias = ($victorias * $totalPartidas) / 100;
+
+    return [ 
+        'nombre' => $nombreDelJugador,
+        'cantidadPartidas' => $totalPartidas,
+        'puntajeTotal' => $puntajeTotal,
+        'victorias' => $victorias,
+        'porcentajeVictorias' => $porcentajeDeVictorias,
+    ];
+}
 
 $coleccionPalabras = cargarColeccionPalabras();
 $coleccionPartidas = cargarPartidas();
@@ -193,6 +224,10 @@ do {
 
             break;
         case 5:
+            echo "Ingrese nombre del jugador\n";
+            $nombreJugador = trim(fgets(STDIN));
+            $informacionDelJugador = informacionJugador($coleccionPartida, $nombreJugador);
+            print_r($informacionDelJugador);
 
             break;
         case 6:
