@@ -90,6 +90,23 @@ function cargarPartidas()
    
 return $coleccionPartidas;
 }
+/**
+ * solicita el nombre del jugador y verifica que comience con una letra
+ * @return string
+ */
+function solicitarJugador(){
+    $i = 0;
+    do {
+        echo "Ingrese su nombre\n";
+        $jugador = trim(fgets(STDIN));
+        if($jugador[0] == ctype_alpha($jugador[0])){
+           return (strtolower($jugador)); 
+        }else{
+            echo "El nombre debe tener letras\n";
+        }
+        
+    }while($i < strlen($jugador) && $jugador[0] != ctype_alpha($jugador[$i])); 
+}
 
 /**
  * Dada una caleccion de partida, una caleccion de palabra, el nombre de un jugador y un indice. Determina si el jugador puede jugar la palabra que eligio, segun el indice
@@ -155,24 +172,22 @@ do {
     $opcion = seleccionarOpciones();
     switch ($opcion) {
         case 1: 
-            echo "Ingrese su Nombre\n";
-            $nombre = trim(fgets(STDIN));
+            $jugador = solicitarJugador();
             echo "Ingre un numero\n";
             $numPalabra = solicitarNumeroEntre(0,count($coleccionPalabras));
-            $jugar = jugarWordix($coleccionPalabras[$numPalabra], $nombre);
+            $jugar = jugarWordix($coleccionPalabras[$numPalabra], $jugador);
             print_r($jugar);
             //completar qué secuencia de pasos ejecutar si el usuario elige la opción 1
 
             break;
         case 2:
-            echo "Ingrese su Nombre\n";
-            $nom = trim(fgets(STDIN));//Asigna un numero entero aleatorio
+            $jugador = solicitarJugador();//Asigna un numero entero aleatorio
             echo "Ingrese un numero\n";
             $numPal = solicitarNumeroEntre(0, count($coleccionPalabras));
-            while(!validarPalabra($coleccionPalabra,$coleccionPartida, $nom,$numPal)){
-                $numPal = solicitarNumeroEntre(0, count($coleccionPalabras));;
+            while(!validarPalabra($coleccionPalabra,$coleccionPartida, $jugador,$numPal)){
+                $numPal = solicitarNumeroEntre(0, count($coleccionPalabras));
             }
-            $jugar = jugarWordix($coleccionPalabra[$numPal], $nom);
+            $jugar = jugarWordix($coleccionPalabra[$numPal], $jugador);
             print_r($jugar);
             array_push($coleccionPartida,$jugar);
 
@@ -186,9 +201,8 @@ do {
 
             break;
         case 4:
-            echo "Ingrese un Nombre\n";
-            $nombre = trim(fgets(STDIN));
-            $primPart = primerPartidaGanada($coleccionPartida, $nombre);
+            $jugador = solicitarJugador();
+            $primPart = primerPartidaGanada($coleccionPartida, $jugador);
             print_r($primPart);
 
             break;
@@ -202,11 +216,6 @@ do {
         case 7:
             
             break;
-        case 8:
-            break;
-        case 8:
-            break;
-            
     }
 } while ($opcion != 8 );
 ?>
