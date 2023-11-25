@@ -235,13 +235,27 @@ do {
             
             break;
         case 7:
+            //print_r($coleccionPalabras);
+
             do{
             $nuevaPalabra = leerPalabra5Letras();
-            array_push($coleccionPalabras, $nuevaPalabra);
+            for ($i=0; $i<count($coleccionPalabras); $i++){
+
+                if($nuevaPalabra == $coleccionPalabras[$i]){
+                    echo "La palabra ya existe! \n";
+                    break;
+                }else{
+                    array_push($coleccionPalabras, $nuevaPalabra);
+                    break;
+                }
+                
+            }
+
             echo "Desea ingresar otra palabra? (s/n) \n";
             $opcion = trim(fgets(STDIN));
             }while($opcion == "s");
-            //print_r($coleccionPalabras); | para verificar que la palabra se agrego correctamente
+
+            //print_r($coleccionPalabras);| para verificar que la palabra se agrego correctamente
             break;
         case 8:
             break;
