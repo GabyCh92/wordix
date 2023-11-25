@@ -265,9 +265,8 @@ do {
 
             break;
         case 5:
-            echo "Ingrese nombre del jugador\n";
-            $nombreJugador = trim(fgets(STDIN));
-            $informacionDelJugador = informacionJugador($coleccionPartida, $nombreJugador);
+            $jugador = solicitarJugador();
+            $informacionDelJugador = informacionJugador($coleccionPartida, $jugador);
             print_r($informacionDelJugador);
 
             break;
