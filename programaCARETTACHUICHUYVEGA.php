@@ -160,8 +160,8 @@ function primerPartidaGanada ($coleccionPartidas, $nomb){
         if ($nomb == $coleccionPartidas[$i]['jugador'] && $coleccionPartidas[$i]['puntaje'] > 0){
             return $coleccionPartidas[$i];
         }
-        }
     }
+}
 
   
 //print_r($partida);
@@ -255,21 +255,26 @@ do {
             $jugador = solicitarJugador();
             echo "Ingre un numero\n";
             $numPalabra = solicitarNumeroEntre(0,count($coleccionPalabras));
+            while(!validarPalabra($coleccionPalabra,$coleccionPartidas, $jugador,$numPalabra)){
+                echo "El numero ingresado ya se jugo, ingrese otro\n";
+                $numPalabra = solicitarNumeroEntre(0, count($coleccionPalabras));
+            }
             $jugar = jugarWordix($coleccionPalabras[$numPalabra], $jugador);
             print_r($jugar);
+            array_push($coleccionPartidas,$jugar);
+            break;
+
             //completar qué secuencia de pasos ejecutar si el usuario elige la opción 1
 
             break;
         case 2:
-            $jugador = solicitarJugador();//Asigna un numero entero aleatorio
-            echo "Ingrese un numero\n";
-            $numPal = solicitarNumeroEntre(0, count($coleccionPalabras));
-            while(!validarPalabra($coleccionPalabra,$coleccionPartida, $jugador,$numPal)){
-                $numPal = solicitarNumeroEntre(0, count($coleccionPalabras));
-            }
-            $jugar = jugarWordix($coleccionPalabra[$numPal], $jugador);
+            $jugador = solicitarJugador();
+            do{
+                $palabraAleatoria = random_int(0, count($coleccionPalabras)); //Asigna un numero entero aleatorio
+            }while(!validarPalabra($coleccionPalabra,$coleccionPartidas, $jugador,$palabraAleatoria));
+            $jugar = jugarWordix($coleccionPalabra[$palabraAleatoria], $jugador);
             print_r($jugar);
-            array_push($coleccionPartida,$jugar);
+            array_push($coleccionPartidas,$jugar);
 
             break;
         case 3: 
