@@ -166,7 +166,6 @@ function partidaNum($coleccionPartidas,$num){
  * @param array $nomb
  * @return array
  */
-$coleccionPartidas = cargarPartidas();
 function primerPartidaGanada ($coleccionPartidas, $nomb){
 
     for( $i = 0; $i < count($coleccionPartidas); $i++){
@@ -268,6 +267,21 @@ function ordenar($partidas) {
     return $partidas;
 }
 
+/**
+ * Dado como parametro una jugada, muestra la partida por pantalla
+ * @param array $jugar
+ * @return string
+ */
+function mostrarJugada($jugar){
+    echo "\n";
+    echo "\n***********************************************************";
+    echo "\npalabraWordix: ".$jugar['palabraWordix'];
+    echo "\njugador: ".$jugar['jugador'];
+    echo "\nintentos: ".$jugar['intentos'];
+    echo "\npuntaje: ".$jugar['puntaje'];
+    echo "\n***********************************************************\n";
+}
+
 
 $coleccionPalabras = cargarColeccionPalabras();
 $coleccionPartidas = cargarPartidas();
@@ -283,8 +297,8 @@ do {
                 $numPalabra = solicitarNumeroEntre(0, count($coleccionPalabras));
             }
             $jugar = jugarWordix($coleccionPalabras[$numPalabra], $jugador);
-            print_r($jugar);
-            array_push($coleccionPartidas,$jugar);
+            $partida = mostrarJugada($jugar);
+            array_push($coleccionPartidas,$jugar );
             break;
 
             //completar qué secuencia de pasos ejecutar si el usuario elige la opción 1
@@ -296,9 +310,8 @@ do {
                 $palabraAleatoria = random_int(0, count($coleccionPalabras)); //Asigna un numero entero aleatorio
             }while(!validarPalabra($coleccionPalabra,$coleccionPartidas, $jugador,$palabraAleatoria));
             $jugar = jugarWordix($coleccionPalabra[$palabraAleatoria], $jugador);
-            print_r($jugar);
-            array_push($coleccionPartidas,$jugar);
-
+            $partida = mostrarJugada($jugar);
+            array_push($coleccionPartidas,$jugar );
             break;
         case 3: 
             echo "Ingrese un numero\n";
@@ -309,13 +322,12 @@ do {
 
         case 4:
             $jugador = solicitarJugador();
-            $primPart = primerPartidaGanada($coleccionPartida, $jugador);
+            $primPart = primerPartidaGanada($coleccionPartidas, $jugador);
             break;
 
         case 5:
             $jugador = solicitarJugador();
-            $informacionDelJugador = informacionJugador($coleccionPartida, $jugador);
-            print_r($informacionDelJugador);
+            $informacionDelJugador = informacionJugador($coleccionPartidas, $jugador);
 
             break;
         case 6:
