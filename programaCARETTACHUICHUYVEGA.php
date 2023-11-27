@@ -169,19 +169,24 @@ function partidaNum($coleccionPartidas,$num){
 function primerPartidaGanada ($coleccionPartidas, $nomb){
 
     for( $i = 0; $i < count($coleccionPartidas); $i++){
-        if ($nomb == $coleccionPartidas[$i]['jugador'] && $coleccionPartidas[$i]['puntaje'] > 0){
-            $partida = $coleccionPartidas[$i];
-            echo "***********************************************************";
-            echo  "\nPartida WORDIX: ".$i. " Palabra ". $partida['palabraWordix'];
-            echo  "\nJugador: ".$partida['jugador'];
-            echo  "\nPuntaje: ".$partida['puntaje'];
-            echo  "\nIntento: "."Adivino la palabra en ".$partida['intentos']." intentos";
-            echo "\n***********************************************************\n";
-        break;
+        $partida = $coleccionPartidas[$i];
+        if($partida['puntaje'] > 0){
+            if ($nomb == $coleccionPartidas[$i]['jugador'] && $coleccionPartidas[$i]['puntaje'] > 0){
+                echo "***********************************************************";
+                echo  "\nPartida WORDIX: ".$i. " Palabra ". $partida['palabraWordix'];
+                echo  "\nJugador: ".$partida['jugador'];
+                echo  "\nPuntaje: ".$partida['puntaje'];
+                echo  "\nIntento: "."Adivino la palabra en ".$partida['intentos']." intentos";
+                echo "\n***********************************************************\n"; 
+                break;
+            }
+        
+        }else{
+            echo "El jugador ".$nomb." no gano ninguna partida\n";
+            break;
         }
     }
 }
-
 
 //print_r($partida);
 //imprimirResultado($partida);
