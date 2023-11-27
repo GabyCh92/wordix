@@ -157,7 +157,14 @@ function primerPartidaGanada ($coleccionPartidas, $nomb){
 
     for( $i = 0; $i < count($coleccionPartidas); $i++){
         if ($nomb == $coleccionPartidas[$i]['jugador'] && $coleccionPartidas[$i]['puntaje'] > 0){
-            return $coleccionPartidas[$i];
+            $partida = $coleccionPartidas[$i];
+            echo "***********************************************************";
+            echo  "\nPartida WORDIX: ".$i. " Palabra ". $partida['palabraWordix'];
+            echo  "\nJugador: ".$partida['jugador'];
+            echo  "\nPuntaje: ".$partida['puntaje'];
+            echo  "\nIntento: "."Adivino la palabra en ".$partida['intentos']." intentos";
+            echo "\n***********************************************************\n";
+        break;
         }
     }
 }
@@ -285,14 +292,13 @@ do {
             $seleccionoPartida = partidaNum($numero);
             print_r($seleccionoPartida); 
             //completar qué secuencia de pasos ejecutar si el usuario elige la opción 3
-
             break;
+            
         case 4:
             $jugador = solicitarJugador();
             $primPart = primerPartidaGanada($coleccionPartida, $jugador);
-            print_r($primPart);
-
             break;
+
         case 5:
             $jugador = solicitarJugador();
             $informacionDelJugador = informacionJugador($coleccionPartida, $jugador);
