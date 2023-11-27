@@ -136,14 +136,28 @@ return $palabraValida;
  * @param int $num
  * @return array
  */
-function partidaNum($num){
+function partidaNum($coleccionPartidas,$num){
     /*array $coleccionPartida, $partida*/
-    $coleccionPartida = cargarPartidas();
     if($num > 0){
-        $num = $num - 1; 
+        $numM = $num - 1; 
     }
-    $partida = $coleccionPartida[$num];
-    return $partida;
+    if($numM >= 0 && $numM < count($coleccionPartidas)){
+        for( $i = 0; $i < count($coleccionPartidas); $i++){
+                $partida = $coleccionPartidas[$numM];
+                echo "***********************************************************";
+                echo  "\nPartida WORDIX: ".$num. " Palabra ". $partida['palabraWordix'];
+                echo  "\nJugador: ".$partida['jugador'];
+                echo  "\nPuntaje: ".$partida['puntaje'];
+                echo  "\nIntento: "."Adivino la palabra en ".$partida['intentos']." intentos";
+                echo "\n***********************************************************\n";
+            break;
+        }
+    }else{
+        do{
+            echo "El numero de partida no existe. Ingrese otro numero"; 
+            break;
+        }while($numM != count($coleccionPartidas));
+    }
 }
 
 /**
@@ -289,11 +303,10 @@ do {
         case 3: 
             echo "Ingrese un numero\n";
             $numero = solicitarNumeroEntre(0,count($coleccionPartidas));
-            $seleccionoPartida = partidaNum($numero);
-            print_r($seleccionoPartida); 
+            $seleccionoPartida = partidaNum($coleccionPartidas,$numero);
             //completar qué secuencia de pasos ejecutar si el usuario elige la opción 3
             break;
-            
+
         case 4:
             $jugador = solicitarJugador();
             $primPart = primerPartidaGanada($coleccionPartida, $jugador);
