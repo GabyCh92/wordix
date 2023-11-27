@@ -1,5 +1,5 @@
 <?php
-include_once("wordix.php");
+include_once("wordix.php"); 
 
 
 
@@ -87,7 +87,7 @@ function cargarPartidas()
     $coleccionPartidas[7] = ["palabraWordix" => "GOTAS", "jugador" => "mili", "intentos" => 5, "puntaje" => 12];
     $coleccionPartidas[8] = ["palabraWordix" => "PERRO", "jugador" => "dexter18", "intentos" => 6, "puntaje" => 12];
     $coleccionPartidas[9] = ["palabraWordix" => "LIBRO", "jugador" => "rudolf", "intentos" => 1, "puntaje" => 16];
-   
+
 return $coleccionPartidas;
 }
 /**
@@ -100,7 +100,7 @@ function solicitarJugador(){
         echo "Ingrese su nombre\n";
         $jugador = trim(fgets(STDIN));
         if($jugador[0] == ctype_alpha($jugador[0])){
-           return (strtolower($jugador)); 
+        return (strtolower($jugador)); 
         }else{
             echo "El nombre debe tener letras\n";
         }
@@ -116,12 +116,14 @@ function solicitarJugador(){
  * @param int $num
  * @return boolean 
  */
-    function validarPalabra($coleccionPalabras,$coleccionPartidas, $nombre, $num){
+    $coleccionPalabra = cargarColeccionPalabras();
+    $coleccionPartida = cargarPartidas();
+    function validarPalabra($coleccionPalabra,$coleccionPartida, $nombre, $num){
     /*boolean $palabraValida */
     $palabraValida = true;
-    for($i=0; $i < count($coleccionPalabras); $i++){
-        for($j=0; $j < count($coleccionPartidas); $j++){
-            if( $coleccionPalabras[$num] == $coleccionPartidas[$j]["palabraWordix"] && $nombre == $coleccionPartidas[$j]["jugador"]){
+    for($i=0; $i < count($coleccionPalabra); $i++){
+        for($j=0; $j < count($coleccionPartida); $j++){
+            if( $coleccionPalabra[$num] == $coleccionPartida[$j]["palabraWordix"] && $nombre == $coleccionPartida[$j]["jugador"]){
                 $palabraValida = false;
             }
         }
@@ -134,8 +136,7 @@ return $palabraValida;
  * @param int $num
  * @return array
  */
-
- function partidaNum($num){
+function partidaNum($num){
     /*array $coleccionPartida, $partida*/
     $coleccionPartida = cargarPartidas();
     if($num > 0){
@@ -151,6 +152,7 @@ return $palabraValida;
  * @param array $nomb
  * @return array
  */
+$coleccionPartidas = cargarPartidas();
 function primerPartidaGanada ($coleccionPartidas, $nomb){
 
     for( $i = 0; $i < count($coleccionPartidas); $i++){
@@ -160,7 +162,7 @@ function primerPartidaGanada ($coleccionPartidas, $nomb){
     }
 }
 
-  
+
 //print_r($partida);
 //imprimirResultado($partida);
 
@@ -191,7 +193,6 @@ function informacionJugador ($coleccionPartidas, $nombreDelJugador){
 
             if ($partida['puntaje'] > 0) {
                 $victorias++;
-
                 switch ($partida['intentos']) {
                     case 1:
                         $adivinadas['intento 1']++;
@@ -216,15 +217,19 @@ function informacionJugador ($coleccionPartidas, $nombreDelJugador){
         }
     }
     $porcentajeDeVictorias = ($victorias * 100) / $totalPartidas;
-
-    return [ 
-        'Jugador' => $nombreDelJugador,
-        'Partidas' => $totalPartidas,
-        'Puntaje Total' => $puntajeTotal,
-        'Victorias' => $victorias,
-        'Porcentaje Victorias' => $porcentajeDeVictorias,
-        'Adivinadas' => $adivinadas,
-    ];
+    echo "******************************************************";
+    echo "\n" . 'nombre: ' . $nombreDelJugador;
+    echo "\n" . 'cantidadPartidas: ' . $totalPartidas;
+    echo "\n" . 'puntajeTotal: ' . $puntajeTotal;
+    echo "\n" . 'porcentajeVictoria: ' . $porcentajeDeVictorias;
+    echo "\n" . 'Adivinadas: ';
+    echo "\n" . '       intento1: ' . $adivinadas['intento 1'];
+    echo "\n" . '       intento2: ' . $adivinadas['intento 2'];
+    echo "\n" . '       intento3: ' . $adivinadas['intento 3'];
+    echo "\n" . '       intento4: ' . $adivinadas['intento 4'];
+    echo "\n" . '       intento5: ' . $adivinadas['intento 5'];
+    echo "\n" . '       intento6: ' . $adivinadas['intento 6'];
+    echo "\n" ."*************************************************\n";
 }
 
 /**
@@ -252,7 +257,7 @@ do {
             $jugador = solicitarJugador();
             echo "Ingre un numero\n";
             $numPalabra = solicitarNumeroEntre(0,count($coleccionPalabras));
-            while(!validarPalabra($coleccionPalabras,$coleccionPartidas, $jugador,$numPalabra)){
+            while(!validarPalabra($coleccionPalabra,$coleccionPartidas, $jugador,$numPalabra)){
                 echo "El numero ingresado ya se jugo, ingrese otro\n";
                 $numPalabra = solicitarNumeroEntre(0, count($coleccionPalabras));
             }
@@ -268,8 +273,8 @@ do {
             $jugador = solicitarJugador();
             do{
                 $palabraAleatoria = random_int(0, count($coleccionPalabras)); //Asigna un numero entero aleatorio
-            }while(!validarPalabra($coleccionPalabras,$coleccionPartidas, $jugador,$palabraAleatoria));
-            $jugar = jugarWordix($coleccionPalabras[$palabraAleatoria], $jugador);
+            }while(!validarPalabra($coleccionPalabra,$coleccionPartidas, $jugador,$palabraAleatoria));
+            $jugar = jugarWordix($coleccionPalabra[$palabraAleatoria], $jugador);
             print_r($jugar);
             array_push($coleccionPartidas,$jugar);
 
@@ -284,13 +289,13 @@ do {
             break;
         case 4:
             $jugador = solicitarJugador();
-            $primPart = primerPartidaGanada($coleccionPartidas, $jugador);
+            $primPart = primerPartidaGanada($coleccionPartida, $jugador);
             print_r($primPart);
 
             break;
         case 5:
             $jugador = solicitarJugador();
-            $informacionDelJugador = informacionJugador($coleccionPartidas, $jugador);
+            $informacionDelJugador = informacionJugador($coleccionPartida, $jugador);
             print_r($informacionDelJugador);
 
             break;

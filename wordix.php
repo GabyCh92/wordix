@@ -136,7 +136,6 @@ function escribirMensajeBienvenida($usuario)
     echo "***************************************************\n";
 }
 
-
 /**
  * Verifica si una cadena contiene letras.
  * @param string $cadena
@@ -173,7 +172,6 @@ function leerPalabra5Letras()
     }
     return $palabra;
 }
-
 
 /**
  * Inicia una estructura de datos Teclado. La estructura es de tipo: ¿Indexado, asociativo o Multidimensional?
@@ -221,7 +219,6 @@ function escribirTeclado($teclado)
     }
     echo "\n";
 };
-
 
 /**
  * Escribe en pantalla los intentos de Wordix para adivinar la palabra
@@ -336,8 +333,6 @@ function esIntentoGanado($estructuraPalabraIntento)
     return $ganado;
 }
 
-
-
 /** 
  * Obtine el puntaje de una partida segun el numero de partida y la palabra seleccionada
  * @param int $nroIntento
@@ -358,41 +353,39 @@ function obtenerPuntajeWordix($nroIntento,$palabraWordix)  /** ****COMPLETAR****
     if($nroIntento > 0 && $nroIntento <= 6 ){
         $puntajeIntentos = 7 - $nroIntento;
     }
-        $palabra = str_split($palabraWordix);
-        for ($i = 0; $i < count($palabra); $i++){
+    $palabra = str_split($palabraWordix);
+    for ($i = 0; $i < count($palabra); $i++){
         $letra = $palabra[$i];
-            for ($j = 0; $j < count($vocales); $j++){
-                $vocal = $vocales[$j];
-                if($letra == $vocal){
-                    $puntajeLetra = $puntajeLetra + 1;
-                } 
-            }
+        for ($j = 0; $j < count($vocales); $j++){
+            $vocal = $vocales[$j];
+            if($letra == $vocal){
+                $puntajeLetra = $puntajeLetra + 1;
+            } 
         }
+    }
 
-        for ($i = 0; $i < count($palabra); $i++){
-        $letra = $palabra[$i];
-            for ($j = 0; $j < count($consonantesAntesDeM);  $j++){
-                $consonante = $consonantesAntesDeM[$j];
-                if($letra == $consonante){
-                    $puntajeLetra1 = $puntajeLetra1 + 2;
-                }
+    for ($i = 0; $i < count($palabra); $i++){
+    $letra = $palabra[$i];
+        for ($j = 0; $j < count($consonantesAntesDeM);  $j++){
+            $consonante = $consonantesAntesDeM[$j];
+            if($letra == $consonante){
+                $puntajeLetra1 = $puntajeLetra1 + 2;
             }
         }
-        for ($i = 0; $i <count($palabra); $i++){
-        $letra = $palabra[$i];
-            for ($j = 0; $j < count($consonantesDespuesDeM); $j++){
-                $consonantes = $consonantesDespuesDeM[$j];
-                if($letra == $consonantes){
-                    $puntajeLetra2 = $puntajeLetra2 + 3;
-                }
+    }
+    for ($i = 0; $i <count($palabra); $i++){
+    $letra = $palabra[$i];
+        for ($j = 0; $j < count($consonantesDespuesDeM); $j++){
+            $consonantes = $consonantesDespuesDeM[$j];
+            if($letra == $consonantes){
+                $puntajeLetra2 = $puntajeLetra2 + 3;
             }
         }
-    
-     $puntajeTotal = $puntajeIntentos + $puntajeLetra + $puntajeLetra1 + $puntajeLetra2;
-       return $puntajeTotal;
     }
     
-    
+    $puntajeTotal = $puntajeIntentos + $puntajeLetra + $puntajeLetra1 + $puntajeLetra2;
+    return $puntajeTotal;
+}
 
 /**
  * Dada una palabra para adivinar, juega una partida de wordix intentando que el usuario adivine la palabra.
@@ -412,6 +405,7 @@ function jugarWordix($palabraWordix, $nombreUsuario)
         echo "Comenzar con el Intento " . $nroIntento . ":\n";
         $palabraIntento = leerPalabra5Letras();
         $indiceIntento = $nroIntento - 1;
+
         $arregloDeIntentosWordix = analizarPalabraIntento($palabraWordix, $arregloDeIntentosWordix, $palabraIntento);
         $teclado = actualizarTeclado($teclado, $arregloDeIntentosWordix[$indiceIntento]);
         /*Mostrar los resultados del análisis: */
@@ -442,4 +436,5 @@ function jugarWordix($palabraWordix, $nombreUsuario)
     ];
 
     return $partida;
+
 }
