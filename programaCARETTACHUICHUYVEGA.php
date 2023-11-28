@@ -275,21 +275,27 @@ function mostrarJugada($jugar){
 }
 
 /** 
- * Verifica que una palabra se encuentre en la coleccion de palabras
+ * Verifica que una palabra se encuentre en la coleccion de palabras y la agrega si no se encuentra
  * @param array $coleccionPalabras
  * @param string $nuevaPalabra
- * @return array
+ * @return bool
 */
 function agregarPalabraWordix($coleccionPalabras, $nuevaPalabra){
     $i=0;
     $palabraEsta=false;
     while($i<count($coleccionPalabras) && !$palabraEsta){
-        if($nuevaPalabra == $coleccionPalabras[$i]){
+        if($nuevaPalabra==$coleccionPalabras[$i]){
             $palabraEsta=true;
         }
         $i++;
     }
-    return $palabraEsta;
+    if($palabraEsta==false){
+        array_push($coleccionPalabras,$nuevaPalabra);
+        echo "Se agrego la palabra \n";
+    }else{
+        echo "La palabra ya existe \n";
+    }
+    return $coleccionPalabras;
 }
 
 /* ****COMPLETAR***** */
@@ -372,18 +378,11 @@ do {
             break;
         case 7:
             do{
-            $nuevaPalabra = leerPalabra5Letras(); //Verifica si la palabra con tiene solo 5 caracteres alfabeticos
-            $agregarPalabra = agregarPalabraWordix($coleccionPalabras, $nuevaPalabra); //Verifica si la palabra se encuentra en el arreglo
-            if($agregarPalabra==false){
-                array_push($coleccionPalabras,$nuevaPalabra);
-                echo "Se agrego la palabra \n";
-            }else{
-                echo "La palabra ya existe \n";
-            }
-            echo "Desea ingresar otra palabra? (s/n) \n";
-            $opcion = trim(fgets(STDIN));
-            }while($opcion == "s");
-            print_r ($coleccionPalabras);
+                $nuevaPalabra = leerPalabra5Letras();
+                $coleccionPalabras = agregarPalabraWordix($coleccionPalabras, $nuevaPalabra); 
+                echo "Desea ingresar otra palabra? (s/n) \n";
+                $opcion = trim(fgets(STDIN));
+                }while($opcion == "s");
             break;
     }
 } while ($opcion != 8 );
