@@ -342,7 +342,7 @@ do {
             break;
         case 7:
             //print_r($coleccionPalabras);
-
+            //HOLAAAA
             do{
             $nuevaPalabra = leerPalabra5Letras();
             for ($i=0; $i<count($coleccionPalabras); $i++){
