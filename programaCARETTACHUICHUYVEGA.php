@@ -278,9 +278,10 @@ function mostrarJugada($jugar){
  * Verifica que una palabra se encuentre en la coleccion de palabras y la agrega si no se encuentra
  * @param array $coleccionPalabras
  * @param string $nuevaPalabra
- * @return bool
+ * @return array
 */
 function agregarPalabraWordix($coleccionPalabras, $nuevaPalabra){
+    //bool $palabraEsta
     $i=0;
     $palabraEsta=false;
     while($i<count($coleccionPalabras) && !$palabraEsta){
