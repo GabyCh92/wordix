@@ -288,7 +288,7 @@ function mostrarJugada($jugar){
 }
 
 /** 
- * Agrega una palabra ingresada por el usuario a la coleccion, verifica que no se encuentre en la coleccion
+ * Verifica que una palabra se encuentre en la coleccion de palabras
  * @param array $coleccionPalabras
  * @param string $nuevaPalabra
  * @return bool
