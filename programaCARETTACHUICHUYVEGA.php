@@ -95,6 +95,7 @@ return $coleccionPartidas;
  * @return string
  */
 function solicitarJugador(){
+    /*string $jugador, int $i */
     $i = 0;
     do {
         echo "Ingrese su nombre\n";
@@ -117,7 +118,7 @@ function solicitarJugador(){
  * @return boolean 
  */
     function validarPalabra($coleccionPalabras,$coleccionPartidas, $nombre, $num){
-    /*boolean $palabraValida */
+    /*boolean $palabraValida, int $i, $j*/
     $palabraValida = true;
     for($i=0; $i < count($coleccionPalabras); $i++){
         for($j=0; $j < count($coleccionPartidas); $j++){
@@ -132,10 +133,11 @@ return $palabraValida;
 /**
  * Dado un numero, retorna la partida que se solicitada
  * @param int $num
+ * @param array $coleccionPartida
  * @return array
  */
 function partidaNum($coleccionPartidas,$num){
-    /*array $coleccionPartida, $partida*/
+    /*boolean $partidaEncontrada, int $numM, $i, array $partida*/  
     if($num > 0){
         $numM = $num - 1; 
     }
@@ -156,8 +158,6 @@ function partidaNum($coleccionPartidas,$num){
             }
             $i++;
         }
-    }else{
-            echo "El numero de partida no existe. Ingrese otro numero"; 
     }
 }
 
@@ -183,7 +183,7 @@ function primerPartidaGanada ($coleccionPartidas, $nomb){
             } 
             $i++;  
         }
-        echo "El jugador ".$nomb." no gano ninguna partida\n"; 
+        echo "El jugador ".$nomb." no gano ningunapartida";
     }
 
 //print_r($partida);
@@ -342,7 +342,8 @@ do {
         case 4:
             $jugador = solicitarJugador();
             $primPart = primerPartidaGanada($coleccionPartidas, $jugador);
-
+           
+        
             break;
         case 5:
             $jugador = solicitarJugador();
