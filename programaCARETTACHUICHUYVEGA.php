@@ -120,61 +120,48 @@ return $palabraValida;
 }
 
 /**
- * Dado un numero, retorna la partida que se solicitada
+ * Busca una partida específica en la colección y devuelve sus detalles.
+ * @param array $coleccionPartidas
  * @param int $num
- * @param array $coleccionPartida
- * @return array
+ * @return array|null
  */
-function partidaNum($coleccionPartidas,$num){
-    /*boolean $partidaEncontrada, int $numM, $i, array $partida*/  
-    if($num > 0){
-        $numM = $num - 1; 
-    }
-    if($numM >= 0 && $numM < count($coleccionPartidas)){
-        $i = 0;
-        $partidaEncontrada = false;
+function partidaNum($coleccionPartidas, $num) {
+    if ($num >= 0 && $num < count($coleccionPartidas)) {
+        $partida = $coleccionPartidas[$num];
 
-        while( $i< count($coleccionPartidas) && !$partidaEncontrada){
-            $partida = $coleccionPartidas[$i];
-            if ($partida == $coleccionPartidas[$numM]){
-                echo "***********************************************************";
-                echo  "\nPartida WORDIX: ".$num. " Palabra ". $partida['palabraWordix'];
-                echo  "\nJugador: ".$partida['jugador'];
-                echo  "\nPuntaje: ".$partida['puntaje'];
-                echo  "\nIntento: "."Adivino la palabra en ".$partida['intentos']." intentos";
-                echo "\n***********************************************************\n";
-                $partidaEncontrada = true;
-            }
-            $i++;
-        }
+        echo "***********************************************************";
+        echo "\nPartida WORDIX: " . $num . " Palabra " . $partida['palabraWordix'];
+        echo "\nJugador: " . $partida['jugador'];
+        echo "\nPuntaje: " . $partida['puntaje'];
+        echo "\nIntento: " . "Adivino la palabra en " . $partida['intentos'] . " intentos";
+        echo "\n***********************************************************\n";
+
+        return $partida;
     }
+    return null;
 }
 
 /**
- * Dada una coleccion de partidas y el nombre del jugador, se muestre por pantalla la primera partida ganada del jugador
+ * Dada una colección de partidas y el nombre del jugador, muestra por pantalla la primera partida ganada del jugador.
  * @param array $coleccionPartidas
- * @param array $nomb
+ * @param string $nomb
  * @return array
  */
-function primerPartidaGanada ($coleccionPartidas, $nomb){
+function primerPartidaGanada($coleccionPartidas, $nomb) {
     $i = 0;
     $mayPunt = 0;
-        while( $i < count($coleccionPartidas)){
-            $partida = $coleccionPartidas[$i];
-                if( $nomb == $partida['jugador'] && $partida['puntaje'] > $mayPunt ){
-                $mayPunt = $partida['puntaje'];
-                echo "***********************************************************";
-                echo  "\nPartida WORDIX: ".$i. " Palabra ".$partida['palabraWordix'];
-                echo  "\nJugador: ".$partida['jugador'];
-                echo  "\nPuntaje: ".$mayPunt;
-                echo  "\nIntento: "."Adivino la palabra en ".$partida['intentos']." intentos";
-                echo "\n***********************************************************\n";        
-            } 
-            $i++;  
-        }
-        echo "El jugador ".$nomb." no gano ningunapartida\n";
-    }
+    $partida = null;
 
+    while ($i < count($coleccionPartidas) && !$partida) {
+        if ($nomb == $coleccionPartidas[$i]['jugador'] && $coleccionPartidas[$i]['puntaje'] > $mayPunt) {
+            $mayPunt = $coleccionPartidas[$i]['puntaje'];
+            $partida = partidaNum($coleccionPartidas, $i);
+        }
+        $i++;
+    }
+    echo "El jugador seleccionado no gano ninguna partida\n";
+    return $partida;
+}
 //print_r($partida);
 //imprimirResultado($partida);
 
@@ -332,7 +319,7 @@ do {
     switch ($opcion) {
         case 1: 
             $jugador = solicitarJugador();
-            echo "Ingre un numero\n";
+            echo "Ingrese un numero\n";
             $numPalabra = solicitarNumeroEntre(0,count($coleccionPalabras));
             while(!validarPalabra($coleccionPalabras,$coleccionPartidas, $jugador,$numPalabra)){
                 echo "El numero ingresado ya se jugo, ingrese otro\n";
