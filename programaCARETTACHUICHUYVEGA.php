@@ -287,6 +287,23 @@ function mostrarJugada($jugar){
     echo "\n***********************************************************\n";
 }
 
+/** 
+ * Agrega una palabra ingresada por el usuario a la coleccion, verifica que no se encuentre en la coleccion
+ * @param array $coleccionPalabras
+ * @param string $nuevaPalabra
+ * @return bool
+*/
+function agregarPalabraWordix($coleccionPalabras, $nuevaPalabra){
+    $i=0;
+    $palabraEsta=false;
+    while($i<count($coleccionPalabras) && !$palabraEsta){
+        if($nuevaPalabra==$coleccionPalabras[$i]){
+            $palabraEsta=true;
+        }
+        $i++;
+    }
+    return $palabraEsta;
+}
 
 $coleccionPalabras = cargarColeccionPalabras();
 $coleccionPartidas = cargarPartidas();
@@ -341,27 +358,18 @@ do {
             
             break;
         case 7:
-            //print_r($coleccionPalabras);
-            //HOLAAAA
             do{
-            $nuevaPalabra = leerPalabra5Letras();
-            for ($i=0; $i<count($coleccionPalabras); $i++){
-
-                if($nuevaPalabra == $coleccionPalabras[$i]){
-                    echo "La palabra ya existe! \n";
-                    break;
-                }else{
-                    array_push($coleccionPalabras, $nuevaPalabra);
-                    break;
-                }
-                
+            $nuevaPalabra = leerPalabra5Letras(); //Verifica si la palabra con tiene solo 5 caracteres alfabeticos
+            $agregarPalabra = agregarPalabraWordix($coleccionPalabras, $nuevaPalabra); //Verifica si la palabra se encuentra en el arreglo
+            if($agregarPalabra==false){
+                array_push($coleccionPalabras,$nuevaPalabra);
+                echo "Se agrego la palabra \n";
+            }else{
+                echo "La palabra ya existe \n";
             }
-
             echo "Desea ingresar otra palabra? (s/n) \n";
             $opcion = trim(fgets(STDIN));
             }while($opcion == "s");
-
-            //print_r($coleccionPalabras);| para verificar que la palabra se agrego correctamente
             break;
     }
 } while ($opcion != 8 );
