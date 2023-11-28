@@ -164,7 +164,7 @@ function leerPalabra5Letras()
     //string $palabra
     echo "Ingrese una palabra de 5 letras: ";
     $palabra = trim(fgets(STDIN));//trim se encarga de eliminar los espacios al inicio y al final de la entrada.
-    $palabra  = strtoupper($palabra);
+    $palabra  = strtoupper($palabra);//Convierte un string a mayúsculas
 
     while ((strlen($palabra) != 5) || !esPalabra($palabra)) {
         echo "Debe ingresar una palabra de 5 letras:";

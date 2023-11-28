@@ -138,25 +138,28 @@ return $palabraValida;
  */
 function partidaNum($coleccionPartidas,$num){
     /*array $coleccionPartida, $partida*/
-    if($num > 0){
+    if($num >= 0){
         $numM = $num - 1; 
     }
     if($numM >= 0 && $numM < count($coleccionPartidas)){
-        for( $i = 0; $i < count($coleccionPartidas); $i++){
-                $partida = $coleccionPartidas[$numM];
+        $i = 0;
+        $partidaEncontrada = false;
+
+        while( $i< count($coleccionPartidas) && !$partidaEncontrada){
+            $partida = $coleccionPartidas[$i];
+            if ($partida == $coleccionPartidas[$numM]){
                 echo "***********************************************************";
                 echo  "\nPartida WORDIX: ".$num. " Palabra ". $partida['palabraWordix'];
                 echo  "\nJugador: ".$partida['jugador'];
                 echo  "\nPuntaje: ".$partida['puntaje'];
                 echo  "\nIntento: "."Adivino la palabra en ".$partida['intentos']." intentos";
                 echo "\n***********************************************************\n";
-            break;
+                $palabraEncontrada = true;
+            }
+            $i++;
         }
     }else{
-        do{
             echo "El numero de partida no existe. Ingrese otro numero"; 
-            break;
-        }while($numM != count($coleccionPartidas));
     }
 }
 
@@ -291,7 +294,7 @@ function mostrarJugada($jugar){
  * Verifica que una palabra se encuentre en la coleccion de palabras
  * @param array $coleccionPalabras
  * @param string $nuevaPalabra
- * @return bool
+ * @return array
 */
 function agregarPalabraWordix($coleccionPalabras, $nuevaPalabra){
     $i=0;
@@ -337,7 +340,7 @@ do {
             break;
         case 3: 
             echo "Ingrese un numero\n";
-            $numero = solicitarNumeroEntre(0,count($coleccionPartidas));
+            $numero = solicitarNumeroEntre(1,count($coleccionPartidas));
             $seleccionoPartida = partidaNum($coleccionPartidas,$numero);
             //completar qué secuencia de pasos ejecutar si el usuario elige la opción 3
             break;
