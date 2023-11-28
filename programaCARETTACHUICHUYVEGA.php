@@ -31,18 +31,7 @@ function cargarColeccionPalabras()
     return ($coleccionPalabras);
 }
 
-/* ****COMPLETAR***** */
 
-
-
-/**************************************/
-/*********** PROGRAMA PRINCIPAL *******/
-/**************************************/
-
-//Declaración de variables:
-
-
-//Inicialización de variables:
 
 
 //Proceso:
@@ -183,7 +172,7 @@ function primerPartidaGanada ($coleccionPartidas, $nomb){
             } 
             $i++;  
         }
-        echo "El jugador ".$nomb." no gano ningunapartida";
+        echo "El jugador ".$nomb." no gano ningunapartida\n";
     }
 
 //print_r($partida);
@@ -295,7 +284,7 @@ function agregarPalabraWordix($coleccionPalabras, $nuevaPalabra){
     $i=0;
     $palabraEsta=false;
     while($i<count($coleccionPalabras) && !$palabraEsta){
-        if($nuevaPalabra==$coleccionPalabras[$i]){
+        if($nuevaPalabra == $coleccionPalabras[$i]){
             $palabraEsta=true;
         }
         $i++;
@@ -303,8 +292,34 @@ function agregarPalabraWordix($coleccionPalabras, $nuevaPalabra){
     return $palabraEsta;
 }
 
+/* ****COMPLETAR***** */
+
+
+
+/**************************************/
+/*********** PROGRAMA PRINCIPAL *******/
+/**************************************/
+
+//Declaración de variables: 
+//array $coleccionPalabras, $coleccionPartidas, $jugar, $partida, $seleccionoPartida, $primPart, $informacionDelJugador, $ordenPartidas,$agregarPalabra 
+//int $opcion, $numPalabra, $numero, $palabraAleatoria
+//string $jugador, $opcion
+//boolean $nuevaPalabra 
+
+
+//Inicialización de variables:
+$coleccionPalabras = [];
+$coleccionPartidas = [];
+$jugar = [];
+$partida = [];
+$seleccionoPartida = [];
+$primPart = [];
+$informacionDelJugador = [];
+$ordenPartidas = [];
+$agregarPalabra = [];
 $coleccionPalabras = cargarColeccionPalabras();
 $coleccionPartidas = cargarPartidas();
+
 do {
     $opcion = seleccionarOpciones();
     switch ($opcion) {
@@ -368,6 +383,7 @@ do {
             echo "Desea ingresar otra palabra? (s/n) \n";
             $opcion = trim(fgets(STDIN));
             }while($opcion == "s");
+            print_r ($coleccionPalabras);
             break;
     }
 } while ($opcion != 8 );
