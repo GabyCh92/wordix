@@ -62,8 +62,8 @@ function seleccionarOpciones(){
  * @return array
  */
 function cargarPartidas()
-{
-    /* $coleccionPartidas array */
+{ 
+    /*$coleccionPartidas array */
     $coleccionPartidas[0] = ["palabraWordix" => "QUESO", "jugador" => "majo", "intentos" => 0, "puntaje" => 0];
     $coleccionPartidas[1] = ["palabraWordix" => "CASAS", "jugador" => "rudolf", "intentos" => 3, "puntaje" => 14];
     $coleccionPartidas[2] = ["palabraWordix" => "QUESO", "jugador" => "pink2000", "intentos" => 6, "puntaje" => 10];
@@ -77,6 +77,7 @@ function cargarPartidas()
 
 return $coleccionPartidas;
 }
+
 /**
  * solicita el nombre del jugador y verifica que comience con una letra
  * @return string
@@ -125,7 +126,7 @@ return $palabraValida;
  */
 function partidaNum($coleccionPartidas, $num) {
     //int $partida
-    if ($num > 0 && $num < count($coleccionPartidas)) {
+    if ($num >= 0 && $num < count($coleccionPartidas)) {
         $partida = $coleccionPartidas[$num];
 
         echo "***********************************************************";
@@ -147,28 +148,27 @@ function partidaNum($coleccionPartidas, $num) {
  * Dada una colección de partidas y el nombre del jugador, muestra por pantalla la primera partida ganada del jugador.
  * @param array $coleccionPartidas
  * @param string $nomb
- * @return array
+ * 
  */
 function primerPartidaGanada($coleccionPartidas, $nomb) {
-    // int $i, $mayPunt
+    // int $i, $mayPunt bool $partidaEncontrada
     $i = 0;
     $mayPunt = 0;
     $partida = null;
+    $partidaEncontrada=false;
 
-    while ($i < count($coleccionPartidas) && !$partida) {
+    while ($i < count($coleccionPartidas) && !$partidaEncontrada) {
         if ($nomb == $coleccionPartidas[$i]['jugador'] && $coleccionPartidas[$i]['puntaje'] > $mayPunt) {
             $mayPunt = $coleccionPartidas[$i]['puntaje'];
             $partida = partidaNum($coleccionPartidas, $i);
+            $partidaEncontrada=true;
         }
         $i++;
     }
-    if ($partida == null){
+    if (!$partidaEncontrada){
             echo "El jugador seleccionado no gano ninguna partida\n";
     }
-    return $partida;
 }
-//print_r($partida);
-//imprimirResultado($partida);
 
 /**
  * Muestra la informacion de un jugador en concreto
@@ -340,12 +340,12 @@ do {
         case 1: 
             $jugador = solicitarJugador();
             echo "Ingrese un numero\n";
-            $numPalabra = solicitarNumeroEntre(0,count($coleccionPalabras));
-            while(!validarPalabra($coleccionPalabras,$coleccionPartidas, $jugador,$numPalabra)){
+            $numPalabra = solicitarNumeroEntre(1,count($coleccionPalabras));
+            while(!validarPalabra($coleccionPalabras,$coleccionPartidas, $jugador,$numPalabra -1)){
                 echo "El numero ingresado ya se jugo, ingrese otro\n";
-                $numPalabra = solicitarNumeroEntre(0, count($coleccionPalabras));
+                $numPalabra = solicitarNumeroEntre(1, count($coleccionPalabras));
             }
-            $jugar = jugarWordix($coleccionPalabras[$numPalabra], $jugador);
+            $jugar = jugarWordix($coleccionPalabras[$numPalabra - 1], $jugador);
             $partida = mostrarJugada($jugar);
             array_push($coleccionPartidas,$jugar );
 
@@ -353,7 +353,7 @@ do {
         case 2:
             $jugador = solicitarJugador();
             do{
-                $palabraAleatoria = random_int(0, count($coleccionPalabras)); //Asigna un numero entero aleatorio
+                $palabraAleatoria = random_int(0, count($coleccionPalabras)-1); //Asigna un numero entero aleatorio
 
             }while(!validarPalabra($coleccionPalabras,$coleccionPartidas, $jugador,$palabraAleatoria));
 
@@ -365,7 +365,7 @@ do {
         case 3: 
             echo "Ingrese un numero\n";
             $numero = solicitarNumeroEntre(1,count($coleccionPartidas));
-            $seleccionoPartida = partidaNum($coleccionPartidas,$numero);
+            $seleccionoPartida = partidaNum($coleccionPartidas,$numero-1);
 
             break;
         case 4:
