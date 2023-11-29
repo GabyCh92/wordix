@@ -6,9 +6,11 @@ include_once("wordix.php");
 /**************************************/
 /***** DATOS DE LOS INTEGRANTES *******/
 /**************************************/
-
-/* Apellido, Nombre. Legajo. Carrera. mail. Usuario Github */
-/* ****COMPLETAR***** */
+/*
+- Gabriela S. Chuichuy | Legajo 3153| gabriela.chuichuy@est.fi.uncoma.edu.ar| GabyCh92
+- Nicolas M. Caretta Saez | Legajo 4393| nicolas.caretta@est.fi.uncoma.edu.ar| Nico9220
+- Lucas J. Vega | Legajo 3940| lucas.vega@est.fi.uncoma.edu.ar| luuukaskm
+*/
 
 
 /**************************************/
@@ -30,9 +32,6 @@ function cargarColeccionPalabras()
 
     return $coleccionPalabras;
 }
-
-
-
 
 //Proceso:
 /**
@@ -125,7 +124,8 @@ return $palabraValida;
  * @return array
  */
 function partidaNum($coleccionPartidas, $num) {
-    if ($num >= 0 && $num < count($coleccionPartidas)) {
+    //int $partida
+    if ($num > 0 && $num < count($coleccionPartidas)) {
         $partida = $coleccionPartidas[$num];
 
         echo "***********************************************************";
@@ -137,6 +137,9 @@ function partidaNum($coleccionPartidas, $num) {
 
         return $partida;
     }
+    if ($num >= count($coleccionPartidas)){
+        echo "La partida no existe \n";
+    }
     return null;
 }
 
@@ -147,6 +150,7 @@ function partidaNum($coleccionPartidas, $num) {
  * @return array
  */
 function primerPartidaGanada($coleccionPartidas, $nomb) {
+    // int $i, $mayPunt
     $i = 0;
     $mayPunt = 0;
     $partida = null;
@@ -158,7 +162,9 @@ function primerPartidaGanada($coleccionPartidas, $nomb) {
         }
         $i++;
     }
-    echo "El jugador seleccionado no gano ninguna partida\n";
+    if ($partida == null){
+            echo "El jugador seleccionado no gano ninguna partida\n";
+    }
     return $partida;
 }
 //print_r($partida);
@@ -171,6 +177,7 @@ function primerPartidaGanada($coleccionPartidas, $nomb) {
  * @return array
  */
 function informacionJugador ($coleccionPartidas, $nombreDelJugador){
+    // int $totalPartidas, $puntajeTotal, $victorias, Array $adivinadas
     $totalPartidas = 0;
     $puntajeTotal = 0;
     $victorias = 0;
@@ -214,20 +221,24 @@ function informacionJugador ($coleccionPartidas, $nombreDelJugador){
             }
         }
     }
-    $porcentajeDeVictorias = ($victorias * 100) / $totalPartidas;
-    echo "******************************************************";
-    echo "\n" . 'nombre: ' . $nombreDelJugador;
-    echo "\n" . 'cantidadPartidas: ' . $totalPartidas;
-    echo "\n" . 'puntajeTotal: ' . $puntajeTotal;
-    echo "\n" . 'porcentajeVictoria: ' . $porcentajeDeVictorias;
-    echo "\n" . 'Adivinadas: ';
-    echo "\n" . '       intento1: ' . $adivinadas['intento 1'];
-    echo "\n" . '       intento2: ' . $adivinadas['intento 2'];
-    echo "\n" . '       intento3: ' . $adivinadas['intento 3'];
-    echo "\n" . '       intento4: ' . $adivinadas['intento 4'];
-    echo "\n" . '       intento5: ' . $adivinadas['intento 5'];
-    echo "\n" . '       intento6: ' . $adivinadas['intento 6'];
-    echo "\n" ."*************************************************\n";
+    if ($totalPartidas > 0){
+        $porcentajeDeVictorias = ($victorias * 100) / $totalPartidas;
+        echo "******************************************************";
+        echo "\n" . 'nombre: ' . $nombreDelJugador;
+        echo "\n" . 'cantidadPartidas: ' . $totalPartidas;
+        echo "\n" . 'puntajeTotal: ' . $puntajeTotal;
+        echo "\n" . 'porcentajeVictoria: ' . $porcentajeDeVictorias;
+        echo "\n" . 'Adivinadas: ';
+        echo "\n" . '       intento1: ' . $adivinadas['intento 1'];
+        echo "\n" . '       intento2: ' . $adivinadas['intento 2'];
+        echo "\n" . '       intento3: ' . $adivinadas['intento 3'];
+        echo "\n" . '       intento4: ' . $adivinadas['intento 4'];
+        echo "\n" . '       intento5: ' . $adivinadas['intento 5'];
+        echo "\n" . '       intento6: ' . $adivinadas['intento 6'];
+        echo "\n" ."*************************************************\n";
+    }else{
+        echo "El jugador " . $nombreDelJugador . " no ha jugado ninguna partida \n";
+    }
 }
 
 /**
@@ -236,8 +247,9 @@ function informacionJugador ($coleccionPartidas, $nombreDelJugador){
  * @return array
  */
 function ordenar($partidas) { 
+    //string $a, $b, $comparacionJugador
     function comparaJugador($a, $b) {
-        $comparacionJugador = strcmp($a['jugador'], $b['jugador']);
+        $comparacionJugador = strcmp($a['jugador'], $b['jugador']);//Comparación de string segura a nivel binario
         return ($comparacionJugador !== 0) ? $comparacionJugador : strcmp($a['palabraWordix'], $b['palabraWordix']);
     }
     uasort($partidas, 'comparaJugador');//Ordena un array con una función de comparación definida por el usuario y mantiene la asociación de índices.
@@ -267,7 +279,7 @@ function mostrarJugada($jugar){
  * @return array
 */
 function agregarPalabraWordix($coleccionPalabras, $nuevaPalabra){
-    //bool $palabraEsta
+    //bool $palabraEsta , int $i
     $i=0;
     $palabraEsta=false;
     while($i<count($coleccionPalabras) && !$palabraEsta){
@@ -282,19 +294,35 @@ function agregarPalabraWordix($coleccionPalabras, $nuevaPalabra){
     }else{
         echo "La palabra ya existe \n";
     }
+    for($j = 0; $j < count($coleccionPalabras); $j++){
+        echo $coleccionPalabras[$j]."\n";
+    }
     return $coleccionPalabras;
 }
 
-/* ****COMPLETAR***** */
 
+/*Wordix es un Juego de palabras muy adictivo en el que tendrás que adivinar palabras. Tu tarea consiste en
+resolver una palabra de cinco letras en seis intentos.*/
 
+/* La funcion switch es similar a una serie de sentencia "if..." 
+Se utiliza para comparar la misma variable con muchos valores diferentes y ejecutar una parte de codigo 
+distinta dependiendo de a que valor es igual.*/
+
+/*
+print_r permite la impresion de los indices y los elementos de un array.
+*/
+
+/*
+uasort se utiliza para ordenar el arreglo de una funcion definida por el usuario. 
+Mantiene la asociacion de indices, lo que significa que los elementos del array se reordenan, pero las asociaciones entre los indices y los valores se mantienen.
+*/
 
 /**************************************/
 /*********** PROGRAMA PRINCIPAL *******/
 /**************************************/
 
 //Declaración de variables: 
-//array $coleccionPalabras, $coleccionPartidas, $jugar, $partida, $seleccionoPartida, $primPart, $informacionDelJugador, $ordenPartidas,$agregarPalabra 
+//array $coleccionPalabras, $coleccionPartidas, 
 //int $opcion, $numPalabra, $numero, $palabraAleatoria
 //string $jugador, $opcion
 //boolean $nuevaPalabra 
@@ -303,13 +331,6 @@ function agregarPalabraWordix($coleccionPalabras, $nuevaPalabra){
 //Inicialización de variables:
 $coleccionPalabras = [];
 $coleccionPartidas = [];
-$jugar = [];
-$partida = [];
-$seleccionoPartida = [];
-$primPart = [];
-$informacionDelJugador = [];
-$ordenPartidas = [];
-$agregarPalabra = [];
 $coleccionPalabras = cargarColeccionPalabras();
 $coleccionPartidas = cargarPartidas();
 
