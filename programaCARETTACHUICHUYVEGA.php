@@ -28,7 +28,7 @@ function cargarColeccionPalabras()
         "PERRO", "MENTA", "LIBRO", "VENTA", "PESAS"
     ];
 
-    return ($coleccionPalabras);
+    return $coleccionPalabras;
 }
 
 
@@ -36,7 +36,7 @@ function cargarColeccionPalabras()
 
 //Proceso:
 /**
- * Dado un menu de opciones el usurio selecciona la que desea e ingresa, si la opcion no esta en el menu se le solicita ingrese una dentro del mismo
+ * Dado un menu de opciones el usurio selecciona la que desea e ingresa, si la opcion no esta en el menu se le solicita que ingrese una dentro del mismo.
  * @return int
  */
 function seleccionarOpciones(){
@@ -57,7 +57,6 @@ function seleccionarOpciones(){
 
     return $numSelec;
 }
-
 
 /**
  * Posee una coleccion de partidas y retorna la misma
@@ -123,7 +122,7 @@ return $palabraValida;
  * Busca una partida específica en la colección y devuelve sus detalles.
  * @param array $coleccionPartidas
  * @param int $num
- * @return array|null
+ * @return array
  */
 function partidaNum($coleccionPartidas, $num) {
     if ($num >= 0 && $num < count($coleccionPartidas)) {
@@ -351,7 +350,7 @@ do {
         case 4:
             $jugador = solicitarJugador();
             $primPart = primerPartidaGanada($coleccionPartidas, $jugador);
-           
+        
         
             break;
         case 5:
